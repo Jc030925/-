@@ -1,44 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
+let heartRain;
 
-body {
-  background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
-  height: 100vh; display: flex; justify-content: center; align-items: center;
-  overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
-  transition: background 2s ease-in-out;
+window.openEnvelope = function() {
+    const music = document.getElementById("bgMusic");
+    music.play().catch(() => console.log("Music waiting for interaction"));
+    document.getElementById('envelope-wrapper').style.display = 'none';
+    document.getElementById('invitation-letter').style.display = 'block';
+    heartRain = setInterval(createFallingHeart, 450);
+};
+
+window.confirmDate = function() {
+    clearInterval(heartRain);
+    document.getElementById('heart-container').innerHTML = '';
+    document.getElementById('invitation-letter').style.display = 'none';
+    document.getElementById('final-stage').style.display = 'block';
+    document.body.classList.add('night-mode');
+    setInterval(launchTripleFireworks, 850);
+    startCountdown();
+};
+
+function createFallingHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'falling-heart';
+    heart.innerHTML = '❤';
+    const pos = Math.random() < 0.5 ? Math.random() * 18 : Math.random() * 18 + 82;
+    heart.style.left = pos + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.getElementById('heart-container').appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
 }
 
-body.night-mode { background: radial-gradient(circle, #0f172a 0%, #000000 100%) !important; }
-
-/* Letter Card */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
-.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
-
-/* LAKING TEXT DITO */
-.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 3.8rem; margin: 0; }
-.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; font-size: 1.4rem; margin: 25px 0; }
-.info-box p { font-size: 1.3rem; margin: 12px 0; font-weight: bold; color: #880e4f; }
-.divider { color: #d4af37; font-size: 2rem; }
-
-/* Countdown Display */
-#big-timer-container {
-  z-index: 1001; position: relative; color: white;
-  background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 15px;
-  border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(5px);
+function launchTripleFireworks() {
+    const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ffd700', '#ff4500'];
+    for (let j = 0; j < 3; j++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        createHeartExplosion(Math.random() * 100, Math.random() * 100, color);
+    }
 }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
-.timer-label { font-size: 0.9rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 10px; }
 
-/* Envelope Visuals */
-.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
-.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
-.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
-.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.instruction-text { color: #880e4f; font-weight: bold; margin-top: 30px; letter-spacing: 2px; font-size: 1.1rem; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 16px 40px; border-radius: 35px; cursor: pointer; font-weight: bold; font-size: 1.1rem; margin-top: 15px; }
+function createHeartExplosion(x, y, color) {
+    const particles = 45;
+    for (let i = 0; i < particles; i++) {
+        const p = document.createElement('div');
+        p.className = 'spark';
+        p.style.backgroundColor = color;
+        p.style.left = x + 'vw';
+        p.style.top = y + 'vh';
+        document.body.appendChild(p);
+        const angle = (Math.PI * 2 / particles) * i;
+        const dx = 16 * Math.pow(Math.sin(angle), 3) * 7.5;
+        const dy = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * 7.5;
+        p.animate([{ transform: 'translate(0, 0) scale(1.6)', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }], { duration: 2200, easing: 'ease-out', fill: 'forwards' });
+        setTimeout(() => p.remove(), 2300);
+    }
+}
 
-/* Animations */
-.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
-.spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 200; }
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+function startCountdown() {
+    const target = new Date("March 21, 2026 17:00:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const dist = target - now;
+        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        document.getElementById("timer-display").innerHTML = dist < 0 ? "HAPPY ANNIVERSARY!" : `${d}d : ${h}h : ${m}m : ${s}s`;
+    }, 1000);
+}
