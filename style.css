@@ -1,28 +1,44 @@
-body { margin: 0; background: #000; color: white; font-family: 'serif'; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
 
-canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
-
-/* NAMES ABOVE HEART - GOLD */
-.names-glow-gold {
-    font-size: 2.5rem; color: #FFD700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-    font-weight: bold; margin-bottom: 20px; z-index: 10;
+body {
+    background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
+    height: 100vh; display: flex; justify-content: center; align-items: center;
+    overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
+    transition: background 2s ease-in-out;
 }
 
-#heart-container { font-size: 100px; animation: pulse 1s infinite; z-index: 10; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+body.night-mode { background: #000 !important; }
 
-/* ENVELOPE STYLES (Based on your layout) */
-.envelope-container { cursor: pointer; text-align: center; z-index: 10; position: relative; }
-.envelope { position: relative; width: 200px; height: 120px; background: #c0392b; margin: auto; }
-.flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 60px solid #e74c3c; z-index: 2; transition: 0.5s; }
-.wax-seal { position: absolute; top: 40px; left: 85px; width: 30px; height: 30px; background: #f1c40f; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 3; color: #c0392b; font-weight: bold; }
+.center-overlap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 3000; }
 
-/* LETTER CARD */
-.letter-card {
-    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 85%; max-width: 350px; background: #fff; color: #333; padding: 20px; border-radius: 10px; z-index: 100;
+/* Envelope Visuals */
+.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
+.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
+.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
+.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; transition: transform 0.6s; }
+.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
+
+/* Letter Card */
+.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
+.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
+
+/* Countdown 3-2-1 */
+#big-countdown { font-family: 'Orbitron', sans-serif; font-size: 10rem; color: white; text-shadow: 0 0 20px #ff1493; }
+
+/* Grand Reveal */
+.heart-firework { font-size: 15rem; color: #ff0000; text-shadow: 0 0 50px #ff0000; animation: heartPound 1.2s infinite; }
+@keyframes heartPound { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+.names-glow { 
+    font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ffd700; 
+    text-shadow: 0 0 20px #ff1493, 0 0 40px #ffd700; 
+    opacity: 0; transition: all 1s ease-in-out; margin-top: -50px;
 }
-.script-title { font-family: 'cursive'; color: #c0392b; }
-.action-btn { background: #c0392b; color: white; border: none; padding: 10px; margin: 5px; cursor: pointer; border-radius: 5px; width: 100%; }
+.names-glow.show { opacity: 1; margin-top: 20px; }
+.names-glow.move-up { position: fixed; top: 10%; font-size: 3.5rem; opacity: 1; }
 
-.center-overlap { font-size: 4rem; z-index: 20; position: absolute; }
+/* UI */
+.script-title { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 3.5rem; }
+.body-text { font-style: italic; font-size: 1.3rem; }
+.action-btn { background: #880e4f; color: white; border: none; padding: 15px 35px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; margin-top: 15px; }
+.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 2000; }
