@@ -1,71 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
-
 body {
-  background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
-  height: 100vh; display: flex; justify-content: center; align-items: center;
-  overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
-  transition: background 3s ease-in-out;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-body.night-mode { background: #000 !important; }
-
-.center-overlap {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    text-align: center; z-index: 3000;
+#main-wrapper {
+    text-align: center;
+    z-index: 10;
+    position: relative;
 }
 
-#big-countdown { font-family: 'Orbitron', sans-serif; font-size: 8rem; color: white; }
-
-/* MAS PINALAKING PUSO PARA KASYA ANG NAME */
-.heart-outline {
-    font-size: 35rem; /* Higante na para kasya ang text */
-    color: transparent;
-    -webkit-text-stroke: 8px #ff4444; 
-    filter: drop-shadow(0 0 15px #ff0000);
-    animation: heartPound 1.2s infinite;
-}
-
-/* SOLID COLOR PARA MABASA (Hindi Neon) */
-.names-clear {
-    position: absolute; font-family: 'Great Vibes', cursive;
-    font-size: 6rem; color: #ffd700; /* Solid Gold */
+/* JC & KAI - Gold Color & Always on top */
+.names {
+    font-size: 2.8rem;
     font-weight: bold;
-    white-space: nowrap; opacity: 0;
-    transition: opacity 0.8s, top 1.2s ease-in-out, transform 1.2s ease-in-out, font-size 1.2s;
+    color: #FFD700; /* Gold */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    margin-bottom: 20px;
 }
 
-.names-clear.show { opacity: 1; }
-
-/* LILIPAD SA TAAS NG LETTER */
-.names-clear.move-up {
-    opacity: 1; position: fixed; 
-    top: 10%; /* Siguradong nasa taas ng letter */
-    left: 50%;
-    transform: translate(-50%, 0);
-    font-size: 4rem; /* Liliti nang kaunti para hindi sagabal */
+/* Heart Style */
+.heart {
+    font-size: 100px;
+    color: #ff4d4d;
+    animation: pulse 1s infinite;
 }
 
-@keyframes heartPound {
+@keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
 
-/* ENVELOPE DESIGN */
-.envelope-container { cursor: pointer; width: 320px; height: 220px; position: relative; z-index: 10; }
-.envelope { background-color: #880e4f; height: 100%; width: 100%; position: relative; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
-.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
-.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; text-align: center; }
+/* Letter Scene Hidden at Start */
+#letter-scene {
+    display: none;
+}
 
-/* LETTER & TIMER */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; }
-.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
-.script-title { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #880e4f; }
+.envelope {
+    font-size: 120px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
 
-#big-timer-container { z-index: 1001; position: relative; color: white; background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; }
+.envelope:hover {
+    transform: scale(1.1);
+}
 
-.action-btn { background: #880e4f; color: white; border: none; padding: 15px 35px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; }
-.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 200; }
+.countdown {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+/* Fireworks Background */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Initial Overlay */
+#overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: pointer;
+}
