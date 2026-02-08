@@ -6,22 +6,9 @@
     <title>Our Anniversary</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="main-body">
 
-    <div id="click-to-start" onclick="startExperience()" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; display:flex; justify-content:center; align-items:center; cursor:pointer;">
-        <h2 style="color:white;">Click to Start Heart ❤️</h2>
-    </div>
-
-    <canvas id="fireworksCanvas"></canvas>
-
-    <div id="heart-scene">
-        <div id="couple-names-top" class="names-glow-gold">JC & KAI</div>
-        <div id="heart-container">❤️</div>
-    </div>
-
-    <div id="big-countdown" class="center-overlap" style="display: none;">10</div>
-
-    <div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()" style="display: none;">
+    <div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()">
         <div class="envelope">
             <div class="wax-seal">❤</div>
             <div class="flap"></div>
@@ -42,12 +29,26 @@
                 <p class="date-time">March 21, 2026 • 5:00 PM</p>
                 <p class="venue">📍 Hidden Garden Cafe</p>
             </div>
-            <button class="action-btn" onclick="confirmDate()">Confirm Date? ❤</button>
+            <button class="action-btn" onclick="startGrandReveal()">Confirm Date! ❤</button>
+        </div>
+    </div>
+
+    <div id="big-countdown" class="center-overlap" style="display: none;">3</div>
+
+    <div id="grand-reveal-container" class="center-overlap" style="display: none;">
+        <div id="big-firework-heart" class="heart-firework">❤</div>
+        <div id="couple-names" class="names-glow">JC ❤️ KAI</div>
+    </div>
+
+    <div id="final-stage" style="display: none;">
+        <div id="big-timer-container" class="center-overlap">
+            <div class="timer-label">OUR JOURNEY CONTINUES IN</div>
+            <div id="timer-display">00:00:00:00</div>
         </div>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://www.dropbox.com/scl/fi/xgvx479rqmh8refwkdu0q/easy.mp3?rlkey=an4hycmujdife5ujhcyc0myun&st=kcqyud1x&raw=1" type="audio/mpeg">
     </audio>
 
     <script src="script.js"></script>
