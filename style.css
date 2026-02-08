@@ -1,41 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
 
 body {
-    background: #f8bbd0;
-    height: 100vh; display: flex; justify-content: center; align-items: center;
-    overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
-    transition: background 1s ease;
+  background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
+  height: 100vh; display: flex; justify-content: center; align-items: center;
+  overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
+  transition: background 2s ease-in-out;
 }
 
-body.night-mode { background: #000 !important; }
+body.night-mode { background: radial-gradient(circle, #0f172a 0%, #000000 100%) !important; }
+
+/* Letter Card - Made text larger for readability */
+.letter-card { display: none; background: #ffffff; width: 90%; max-width: 480px; padding: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
+.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
+.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 3.5rem; margin: 0; }
+.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; margin: 25px 0; font-size: 1.3rem; }
+.divider { color: #d4af37; font-size: 2rem; }
+.info-box p { font-size: 1.1rem; margin: 10px 0; font-weight: bold; }
+
+/* BIG TIMER STYLE */
+#big-timer-container {
+  z-index: 1001; position: relative; color: white;
+  background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+.timer-label { font-size: 0.9rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 12px; }
+#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
+
+/* Sparks/Fireworks Particles */
+.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 200; }
+
+/* Falling Hearts */
+.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 /* Envelope */
-.instruction-text.colored-text { color: #880e4f; font-weight: bold; margin-top: 30px; font-size: 1.4rem; }
-.envelope-container { cursor: pointer; width: 350px; text-align: center; }
-.envelope { position: relative; width: 320px; height: 200px; background: #c62828; margin: auto; }
-.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 100px solid #b71c1c; border-top: 100px solid transparent; z-index: 10; }
+.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
+.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
+.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
+.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
 .flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #d4af37; border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 25px; }
-
-/* Invitation Letter - LAKING TEXT */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; border-radius: 10px; }
-.letter-inner { border: 4px double #d4af37; padding: 40px 30px; text-align: center; }
-.script-title { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 4.5rem; margin: 0; }
-.body-text { font-style: italic; font-size: 1.6rem; line-height: 1.4; color: #333; }
-.info-box p { font-size: 1.4rem; font-weight: bold; margin: 10px 0; color: #880e4f; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 18px 45px; border-radius: 35px; cursor: pointer; font-size: 1.3rem; font-weight: bold; margin-top: 20px; }
-
-/* Final Stage */
-#final-stage { display: none; flex-direction: column; align-items: center; z-index: 3000; width: 100%; }
-.final-card { background: white; padding: 40px; border: 5px double #d4af37; text-align: center; color: #333; width: 90%; max-width: 480px; margin-bottom: 25px; border-radius: 10px; }
-.final-title { font-size: 2.5rem; margin: 0; color: #880e4f; }
-.final-body { font-size: 1.5rem; line-height: 1.5; margin: 20px 0; }
-.final-names { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ffd700; text-shadow: 1px 1px 2px #000; }
-.small-heart { font-size: 2rem; color: #ff0000; margin: 10px 0; }
-
-#big-timer-container { background: rgba(26, 26, 26, 0.9); color: white; padding: 25px; border-radius: 20px; text-align: center; width: 380px; border: 2px solid #d4af37; }
-.timer-label { font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; color: #d4af37; }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2rem; }
-
-/* Sparkle Hearts */
-.spark { position: absolute; pointer-events: none; background: transparent !important; z-index: 2000; font-size: 20px; }
+.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; letter-spacing: 2px; font-size: 1.1rem; }
+.action-btn { background: #880e4f; color: white; border: none; padding: 16px 40px; border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 1.1rem; margin-top: 10px; }
