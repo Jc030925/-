@@ -10,6 +10,13 @@
 
     <div id="heart-container"></div>
 
+    <div id="big-countdown" class="center-overlap" style="display: none;">3</div>
+    
+    <div id="grand-reveal-container" class="center-overlap" style="display: none;">
+        <div id="big-firework-heart" class="heart-firework">❤</div>
+        <div id="couple-names" class="names-glow">JC ❤️ KAI</div>
+    </div>
+
     <div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()">
       <div class="envelope">
         <div class="wax-seal">❤</div>
@@ -23,7 +30,7 @@
       <div class="letter-inner">
         <h2 class="script-title">My Dearest Luv,</h2>
         <p class="body-text">
-            From the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
+          From the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
         </p>
         <div class="divider">❤</div>
         <div class="info-box">
@@ -31,7 +38,7 @@
           <p class="date-time">March 21, 2026 • 5:00 PM</p>
           <p class="venue">📍 Hidden Garden Cafe</p>
         </div>
-        <button class="action-btn" onclick="confirmDate()">Confirm Date? ❤</button>
+        <button class="action-btn" onclick="startGrandReveal()">Confirm Date! ❤</button>
       </div>
     </div>
 
@@ -46,7 +53,6 @@
           </p>
         </div>
       </div>
-
       <div id="big-timer-container">
         <div class="timer-label">TIME UNTIL OUR ANNIVERSARY</div>
         <div id="timer-display">00d : 00h : 00m : 00s</div>
@@ -60,4 +66,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
