@@ -1,74 +1,103 @@
+let heartRain;
+
 window.openEnvelope = function() {
     const music = document.getElementById("bgMusic");
-    music.play().catch(() => console.log("Music play blocked by browser. Click anywhere to play."));
-    
+    music.play().catch(e => console.log("Music play blocked"));
+
     document.getElementById('envelope-wrapper').style.display = 'none';
     document.getElementById('invitation-letter').style.display = 'block';
-}
+    heartRain = setInterval(createFallingHeart, 400);
+};
 
-window.startFinalReveal = function() {
-    // Transition direct sa final stage
+window.confirmDate = function() {
+    clearInterval(heartRain);
+    document.getElementById('heart-container').innerHTML = '';
+    
     document.getElementById('invitation-letter').style.display = 'none';
+    document.getElementById('final-stage').style.display = 'block';
+    
     document.body.classList.add('night-mode');
     
-    const finalStage = document.getElementById('final-stage');
-    finalStage.style.display = 'flex';
+    // Sabog ng fireworks tuwing 800ms
+    setInterval(launchTripleFireworks, 800);
+    startCountdown();
+};
 
-    // Simulan ang Heart Fireworks at Timer
-    setInterval(launchHeartFireworks, 1000);
-    startFinalTimer();
+function createFallingHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'falling-heart';
+    heart.innerHTML = '❤';
+    const isLeft = Math.random() < 0.5;
+    const pos = isLeft ? Math.random() * 15 : Math.random() * 15 + 85;
+    heart.style.left = pos + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.getElementById('heart-container').appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
 }
 
-function launchHeartFireworks() {
-    const colors = ['#ff0000', '#ff69b4', '#0000ff'];
-    const positions = [
-        {x: 10, y: 15}, {x: 90, y: 15}, // Taas Gilid
-        {x: 10, y: 85}, {x: 90, y: 85}, // Baba Gilid
-        {x: 5, y: 50},  {x: 95, y: 50}, // Gitna Gilid
-        {x: 50, y: 10}, {x: 50, y: 90}  // Taas/Baba Gitna
-    ];
+function launchTripleFireworks() {
+    const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ffffff', '#ffd700', '#ff4500'];
+    
+    for (let j = 0; j < 3; j++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        let x, y;
+        
+        // Random zones sa gilid, taas, at baba
+        const zone = Math.floor(Math.random() * 4);
+        if (zone === 0) { x = Math.random() * 100; y = Math.random() * 20; }
+        else if (zone === 1) { x = Math.random() * 100; y = Math.random() * 20 + 80; }
+        else if (zone === 2) { x = Math.random() * 20; y = Math.random() * 100; }
+        else { x = Math.random() * 20 + 80; y = Math.random() * 100; }
 
-    colors.forEach(color => {
-        const pos = positions[Math.floor(Math.random() * positions.length)];
-        for (let i = 0; i < 10; i++) {
-            createHeartSpark(pos.x, pos.y, color);
+        const particles = 50;
+        for (let i = 0; i < particles; i++) {
+            const p = document.createElement('div');
+            p.className = 'spark';
+            p.style.backgroundColor = color;
+            p.style.boxShadow = `0 0 10px ${color}`;
+            p.style.left = x + 'vw';
+            p.style.top = y + 'vh';
+            document.body.appendChild(p);
+
+            // Heart Shape Math (Parametric Heart Equation)
+            const angle = (Math.PI * 2 / particles) * i;
+            const xMult = 16 * Math.pow(Math.sin(angle), 3);
+            const yMult = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+            
+            // Dito mangyayari ang "paglaklaki" ng heart firework (scale mula maliit hanggang malaki)
+            const dx = xMult * 8; 
+            const dy = yMult * 8;
+
+            p.animate([
+                { transform: 'translate(0, 0) scale(0)', opacity: 1 }, // Simula sa zero scale
+                { transform: `translate(${dx}px, ${dy}px) scale(1.5)`, opacity: 1, offset: 0.7 }, // Lalaki habang lumalabas
+                { transform: `translate(${dx * 1.2}px, ${dy * 1.2}px) scale(0)`, opacity: 0 } // Mawawala
+            ], { 
+                duration: 2000, 
+                easing: 'ease-out', 
+                fill: 'forwards' 
+            });
+            
+            setTimeout(() => p.remove(), 2100);
         }
-    });
+    }
 }
 
-function createHeartSpark(xPct, yPct, color) {
-    const spark = document.createElement('div');
-    spark.className = 'spark';
-    spark.innerHTML = '❤';
-    spark.style.color = color;
-    spark.style.left = (xPct / 100 * window.innerWidth) + 'px';
-    spark.style.top = (yPct / 100 * window.innerHeight) + 'px';
-    spark.style.textShadow = `0 0 10px ${color}`;
-    document.body.appendChild(spark);
-
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 150 + 50;
-    const destX = Math.cos(angle) * distance;
-    const destY = Math.sin(angle) * distance;
-
-    const anim = spark.animate([
-        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-        { transform: `translate(${destX}px, ${destY}px) scale(0.5)`, opacity: 0 }
-    ], { duration: 1500, easing: 'ease-out' });
-
-    anim.onfinish = () => spark.remove();
-}
-
-function startFinalTimer() {
+function startCountdown() {
     const target = new Date("March 21, 2026 17:00:00").getTime();
+    const display = document.getElementById("timer-display");
+
     setInterval(() => {
-        const diff = target - new Date().getTime();
-        if (diff <= 0) return;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('timer-display').innerText = 
-            `${d}d : ${h}h : ${m}m : ${s}s`;
+        const now = new Date().getTime();
+        const dist = target - now;
+        if (dist < 0) {
+            display.innerHTML = "HAPPY ANNIVERSARY!";
+            return;
+        }
+        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        display.innerHTML = `${d}d : ${h}h : ${m}m : ${s}s`;
     }, 1000);
 }
