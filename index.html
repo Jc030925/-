@@ -3,68 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Anniversary</title>
-    <link rel="stylesheet" href="style.css">
+    <title>JC & KAI Special</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #content-wrapper {
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* JC & KAI Text Styling */
+        .names {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700; /* Gold color para elegant at tugma sa letter icon */
+            text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Heart Animation */
+        .heart {
+            font-size: 80px;
+            color: #ff4d6d;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Scene 2: Letter & Countdown */
+        #letter-section {
+            display: none;
+        }
+
+        .letter-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Background Canvas for Fireworks */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #start-prompt {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-    <div id="heart-container"></div>
-
-    <div id="big-countdown" class="center-overlap" style="display: none;">3</div>
-    
-    <div id="grand-reveal-container" class="center-overlap" style="display: none;">
-        <div class="hollow-heart-box">
-            <div id="big-firework-heart" class="heart-outline">❤</div>
-            <div id="couple-names" class="names-clear">JC & KAI</div>
-        </div>
+    <div id="start-prompt">
+        <h1>Click anywhere to start ❤️</h1>
     </div>
 
-    <div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()">
-      <div class="envelope">
-        <div class="wax-seal">❤</div>
-        <div class="flap"></div>
-        <div class="front"></div>
-      </div>
-      <div class="instruction-text">Tap to Open Your Heart ❤</div>
-    </div>
+    <canvas id="fireworksCanvas"></canvas>
 
-    <div id="invitation-letter" class="letter-card">
-      <div class="letter-inner">
-        <h2 class="script-title">My Dearest Luv,</h2>
-        <p class="body-text">
-          From the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
-        </p>
-        <div class="divider">❤</div>
-        <div class="info-box">
-          <p class="event-name">Our First Anniversary Celebration</p>
-          <p class="date-time">March 21, 2026 • 5:00 PM</p>
-          <p class="venue">📍 Hidden Garden Cafe</p>
+    <div id="content-wrapper">
+        <div class="names">JC & KAI</div>
+        
+        <div id="heart-section">
+            <div class="heart">❤️</div>
         </div>
-        <button class="action-btn" onclick="startGrandReveal()">Confirm Date! ❤</button>
-      </div>
-    </div>
 
-    <div id="final-stage" style="display: none; text-align: center;">
-      <div id="confirmation-letter" class="letter-card" style="display: block; margin: 0 auto 30px;">
-        <div class="letter-inner">
-          <h2 class="script-title-final">Date Confirmed!</h2>
-          <div class="divider">❤</div>
-          <p class="body-text-final">
-            Counting down the days until we celebrate our first year together. <br>
-            I love you!
-          </p>
+        <div id="letter-section">
+            <div class="letter-icon">✉️</div>
+            <div id="timer" class="countdown">10</div>
         </div>
-      </div>
-      <div id="big-timer-container">
-        <div class="timer-label">TIME UNTIL OUR ANNIVERSARY</div>
-        <div id="timer-display">00d : 00h : 00m : 00s</div>
-      </div>
     </div>
 
     <audio id="bgMusic" loop>
-      <source src="https://www.dropbox.com/scl/fi/xgvx479rqmh8refwkdu0/easy.mp3?rlkey=an4hycmujdife5ujhcyc0myun&st=frd0vpof&raw=1" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
+    <script>
+        const heartSection = document.getElementById('heart-section');
+        const letterSection = document.getElementById('letter-section');
+        const timerDisplay = document.getElementById('timer');
+        const music = document.getElementById('bgMusic');
+        const prompt = document.getElementById('start-prompt');
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let fireworksActive = false;
+
+        // Sequence Controller
+        prompt.addEventListener('click', () => {
+            prompt.style.display = 'none';
+            music.play();
+
+            // After 5 seconds, switch to letter and countdown
+            setTimeout(() => {
+                heartSection.style.display = 'none';
+                letterSection.style.display = 'block';
+                fireworksActive = true;
+                startCountdown();
+            }, 5000);
+        });
+
+        function startCountdown() {
+            let count = 10;
+            const interval = setInterval(() => {
+                count--;
+                timerDisplay.innerText = count;
+                if (count <= 0) {
+                    clearInterval(interval);
+                    timerDisplay.innerText = "SURPRISE!";
+                }
+            }, 1000);
+        }
+
+        // Fireworks Engine
+        const fwColors = ['#FF0000', '#FF69B4', '#0000FF']; // Red, Pink, Blue
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speed = Math.random() * 4 + 1;
+                this.angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.alpha = 1;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.015;
+            }
+        }
+
+        function spawnFirework() {
+            if (!fireworksActive) return;
+
+            // Randomize position: Tig-tatlo sa gilid, taas, o baba (iwas gitna)
+            let x, y;
+            const margin = 100;
+            const side = Math.floor(Math.random() * 4); 
+
+            if (side === 0) { // Top
+                x = Math.random() * canvas.width;
+                y = Math.random() * margin;
+            } else if (side === 1) { // Bottom
+                x = Math.random() * canvas.width;
+                y = canvas.height - (Math.random() * margin);
+            } else if (side === 2) { // Left
+                x = Math.random() * margin;
+                y = Math.random() * canvas.height;
+            } else { // Right
+                x = canvas.width - (Math.random() * margin);
+                y = Math.random() * canvas.height;
+            }
+
+            const color = fwColors[Math.floor(Math.random() * fwColors.length)];
+            for (let i = 0; i < 20; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        setInterval(spawnFirework, 600);
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((p, i) => {
+                if (p.alpha > 0) {
+                    p.update();
+                    p.draw();
+                } else {
+                    particles.splice(i, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
