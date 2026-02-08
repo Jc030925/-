@@ -18,7 +18,6 @@ window.confirmDate = function() {
     
     document.body.classList.add('night-mode');
     
-    // Sabog ng fireworks tuwing 800ms
     setInterval(launchTripleFireworks, 800);
     startCountdown();
 };
@@ -37,19 +36,12 @@ function createFallingHeart() {
 
 function launchTripleFireworks() {
     const colors = ['#ff0000', '#ff69b4', '#ff1493', '#ffffff', '#ffd700', '#ff4500'];
-    
     for (let j = 0; j < 3; j++) {
         const color = colors[Math.floor(Math.random() * colors.length)];
-        let x, y;
-        
-        // Random zones sa gilid, taas, at baba
-        const zone = Math.floor(Math.random() * 4);
-        if (zone === 0) { x = Math.random() * 100; y = Math.random() * 20; }
-        else if (zone === 1) { x = Math.random() * 100; y = Math.random() * 20 + 80; }
-        else if (zone === 2) { x = Math.random() * 20; y = Math.random() * 100; }
-        else { x = Math.random() * 20 + 80; y = Math.random() * 100; }
+        let x = Math.random() * 100;
+        let y = Math.random() * 100;
 
-        const particles = 50;
+        const particles = 45;
         for (let i = 0; i < particles; i++) {
             const p = document.createElement('div');
             p.className = 'spark';
@@ -59,24 +51,15 @@ function launchTripleFireworks() {
             p.style.top = y + 'vh';
             document.body.appendChild(p);
 
-            // Heart Shape Math (Parametric Heart Equation)
             const angle = (Math.PI * 2 / particles) * i;
             const xMult = 16 * Math.pow(Math.sin(angle), 3);
             const yMult = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
             
-            // Dito mangyayari ang "paglaklaki" ng heart firework (scale mula maliit hanggang malaki)
-            const dx = xMult * 8; 
-            const dy = yMult * 8;
-
             p.animate([
-                { transform: 'translate(0, 0) scale(0)', opacity: 1 }, // Simula sa zero scale
-                { transform: `translate(${dx}px, ${dy}px) scale(1.5)`, opacity: 1, offset: 0.7 }, // Lalaki habang lumalabas
-                { transform: `translate(${dx * 1.2}px, ${dy * 1.2}px) scale(0)`, opacity: 0 } // Mawawala
-            ], { 
-                duration: 2000, 
-                easing: 'ease-out', 
-                fill: 'forwards' 
-            });
+                { transform: 'translate(0, 0) scale(0)', opacity: 1 },
+                { transform: `translate(${xMult * 8}px, ${yMult * 8}px) scale(1.2)`, opacity: 1, offset: 0.7 },
+                { transform: `translate(${xMult * 10}px, ${yMult * 10}px) scale(0)`, opacity: 0 }
+            ], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
             
             setTimeout(() => p.remove(), 2100);
         }
