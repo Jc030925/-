@@ -10,33 +10,35 @@ body {
 body.night-mode { background: radial-gradient(circle, #0f172a 0%, #000000 100%) !important; }
 
 /* Letter Card */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 450px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
-.letter-inner { border: 3px double #d4af37; padding: 30px 20px; text-align: center; }
-.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 2.8rem; margin: 0; }
-.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.5; margin: 20px 0; }
-.divider { color: #d4af37; font-size: 1.8rem; }
+.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
+.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
 
-/* MALAKING TIMER STYLE */
+/* LAKING TEXT DITO */
+.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 3.8rem; margin: 0; }
+.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; font-size: 1.4rem; margin: 25px 0; }
+.info-box p { font-size: 1.3rem; margin: 12px 0; font-weight: bold; color: #880e4f; }
+.divider { color: #d4af37; font-size: 2rem; }
+
+/* Countdown Display */
 #big-timer-container {
   z-index: 1001; position: relative; color: white;
-  background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 15px;
+  background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 15px;
   border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(5px);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
-.timer-label { font-size: 0.8rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 10px; }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
+#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
+.timer-label { font-size: 0.9rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 10px; }
 
-/* Sparks/Falling Hearts */
-.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
-.spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 200; }
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-/* Envelope */
+/* Envelope Visuals */
 .envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
 .envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
 .wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
 .front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
 .flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; letter-spacing: 2px; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 14px 35px; border-radius: 30px; cursor: pointer; font-weight: bold; }
+.instruction-text { color: #880e4f; font-weight: bold; margin-top: 30px; letter-spacing: 2px; font-size: 1.1rem; }
+.action-btn { background: #880e4f; color: white; border: none; padding: 16px 40px; border-radius: 35px; cursor: pointer; font-weight: bold; font-size: 1.1rem; margin-top: 15px; }
+
+/* Animations */
+.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
+.spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 200; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
