@@ -1,87 +1,108 @@
-const music = document.getElementById('bgMusic');
-const canvas = document.getElementById('fireworksCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// 1. OPEN ENVELOPE -> SHOW LETTER
+window.openEnvelope = function() {
+    const music = document.getElementById("bgMusic");
+    music.play().catch(() => console.log("Music play failed"));
 
-let fireworksActive = false;
-let particles = [];
+    const env = document.getElementById('envelope-wrapper');
+    const letter = document.getElementById('invitation-letter');
 
-function startExperience() {
-    document.getElementById('click-to-start').style.display = 'none';
-    music.play();
-
-    // 1. After 5 Seconds: Mawawala ang Heart, lalabas ang Countdown
+    env.style.transition = "opacity 0.5s ease";
+    env.style.opacity = "0";
+    
     setTimeout(() => {
-        document.getElementById('heart-scene').style.display = 'none';
-        document.getElementById('big-countdown').style.display = 'block';
-        fireworksActive = true; // Simula ng fireworks sa gilid
-        startTimer();
-    }, 5000);
+        env.style.display = 'none';
+        letter.style.display = 'block';
+    }, 500);
 }
 
-function startTimer() {
-    let count = 10;
-    const timer = setInterval(() => {
+// 2. CONFIRM DATE -> 3-2-1 COUNTDOWN
+window.startGrandReveal = function() {
+    document.getElementById('invitation-letter').style.display = 'none';
+    document.body.classList.add('night-mode');
+
+    const cd = document.getElementById('big-countdown');
+    cd.style.display = 'block';
+    let count = 3;
+
+    const cdInterval = setInterval(() => {
         count--;
-        document.getElementById('big-countdown').innerText = count;
+        cd.innerText = count;
         if (count <= 0) {
-            clearInterval(timer);
-            document.getElementById('big-countdown').style.display = 'none';
-            document.getElementById('envelope-wrapper').style.display = 'block';
+            clearInterval(cdInterval);
+            cd.style.display = 'none';
+            showHeartAndNames();
         }
     }, 1000);
 }
 
-function openEnvelope() {
-    document.querySelector('.flap').style.transform = 'rotateX(180deg)';
-    setTimeout(() => {
-        document.getElementById('invitation-letter').style.display = 'block';
-    }, 500);
-}
-
-function confirmDate() {
-    alert("Date Confirmed! ❤️ See you at Hidden Garden Cafe!");
-}
-
-// FIREWORKS LOGIC (Red/Pink/Blue in Corners Only)
-class Particle {
-    constructor(x, y, color) {
-        this.x = x; this.y = y; this.color = color;
-        this.vx = (Math.random() - 0.5) * 5; this.vy = (Math.random() - 0.5) * 5;
-        this.alpha = 1;
-    }
-    draw() {
-        ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color;
-        ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI * 2); ctx.fill();
-    }
-    update() { this.x += this.vx; this.y += this.vy; this.alpha -= 0.01; }
-}
-
-function spawnFireworks() {
-    if (!fireworksActive) return;
-    // Tig-tatalo sa gilid (Top-Left, Top-Right, Bottom-Left, Bottom-Right)
-    const corners = [
-        {x: 50, y: 50}, {x: canvas.width-50, y: 50},
-        {x: 50, y: canvas.height-50}, {x: canvas.width-50, y: canvas.height-50}
-    ];
-    const colors = ['#FF0000', '#FF69B4', '#0000FF'];
+// 3. SHOW HEART & NAMES
+function showHeartAndNames() {
+    const container = document.getElementById('grand-reveal-container');
+    const names = document.getElementById('couple-names');
     
-    corners.forEach(pos => {
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        for(let i=0; i<3; i++) particles.push(new Particle(pos.x, pos.y, color));
+    container.style.display = 'block';
+    setTimeout(() => { names.classList.add('show'); }, 100);
+
+    // 4. AFTER 5s -> MOVE NAMES & SHOW FINAL
+    setTimeout(() => {
+        const bigHeart = document.getElementById('big-firework-heart');
+        bigHeart.style.transition = "opacity 1s ease";
+        bigHeart.style.opacity = "0";
+
+        setTimeout(() => {
+            bigHeart.style.display = 'none';
+            names.classList.add('move-up'); 
+            document.getElementById('final-stage').style.display = 'block';
+            
+            // Start Fireworks and Countdown Timer
+            setInterval(launchTripleFireworks, 1500);
+            startFinalTimer();
+        }, 1000);
+    }, 5000);
+}
+
+// 5. FIREWORKS (Red, Pink, Blue)
+function launchTripleFireworks() {
+    const colors = ['#ff0000', '#ff69b4', '#0000ff'];
+    const positions = [
+        {x: 10, y: 10}, {x: 90, y: 10}, {x: 10, y: 90}, 
+        {x: 90, y: 90}, {x: 50, y: 5}, {x: 50, y: 95}
+    ];
+
+    colors.forEach(color => {
+        const pos = positions[Math.floor(Math.random() * positions.length)];
+        for (let i = 0; i < 15; i++) {
+            createSpark(pos.x, pos.y, color);
+        }
     });
 }
 
-setInterval(spawnFireworks, 800);
+function createSpark(xPct, yPct, color) {
+    const spark = document.createElement('div');
+    spark.className = 'spark';
+    spark.style.backgroundColor = color;
+    spark.style.left = (xPct / 100 * window.innerWidth) + 'px';
+    spark.style.top = (yPct / 100 * window.innerHeight) + 'px';
+    document.body.appendChild(spark);
 
-function animate() {
-    ctx.fillStyle = 'rgba(0,0,0,0.1)';
-    ctx.fillRect(0,0,canvas.width, canvas.height);
-    particles.forEach((p, i) => {
-        if(p.alpha > 0) { p.update(); p.draw(); }
-        else { particles.splice(i, 1); }
-    });
-    requestAnimationFrame(animate);
+    const angle = Math.random() * Math.PI * 2;
+    const destX = Math.cos(angle) * 80;
+    const destY = Math.sin(angle) * 80;
+
+    spark.animate([
+        { transform: 'translate(0, 0)', opacity: 1 },
+        { transform: `translate(${destX}px, ${destY}px)`, opacity: 0 }
+    ], { duration: 1000 }).onfinish = () => spark.remove();
 }
-animate();
+
+function startFinalTimer() {
+    const target = new Date("March 21, 2026 17:00:00").getTime();
+    setInterval(() => {
+        const diff = target - new Date().getTime();
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+        const s = Math.floor((diff % (1000*60)) / 1000);
+        document.getElementById('timer-display').innerText = `${d}d ${h}h ${m}m ${s}s`;
+    }, 1000);
+}
