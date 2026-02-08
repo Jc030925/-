@@ -1,111 +1,87 @@
-const overlay = document.getElementById('overlay');
-const heartScene = document.getElementById('heart-scene');
-const letterScene = document.getElementById('letter-scene');
-const timerText = document.getElementById('timer');
 const music = document.getElementById('bgMusic');
-const canvas = document.getElementById('fwCanvas');
+const canvas = document.getElementById('fireworksCanvas');
 const ctx = canvas.getContext('2d');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let fireworksActive = false;
 let particles = [];
 
-// Start everything on click
-overlay.addEventListener('click', () => {
-    overlay.style.display = 'none';
+function startExperience() {
+    document.getElementById('click-to-start').style.display = 'none';
     music.play();
 
-    // After 5 seconds: Heart disappears, Letter/Countdown appears
+    // 1. After 5 Seconds: Mawawala ang Heart, lalabas ang Countdown
     setTimeout(() => {
-        heartScene.style.display = 'none';
-        letterScene.style.display = 'block';
-        fireworksActive = true;
-        startCountdown();
+        document.getElementById('heart-scene').style.display = 'none';
+        document.getElementById('big-countdown').style.display = 'block';
+        fireworksActive = true; // Simula ng fireworks sa gilid
+        startTimer();
     }, 5000);
-});
+}
 
-function startCountdown() {
+function startTimer() {
     let count = 10;
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
         count--;
-        timerText.innerText = count;
+        document.getElementById('big-countdown').innerText = count;
         if (count <= 0) {
-            clearInterval(interval);
-            timerText.innerText = "OPEN";
+            clearInterval(timer);
+            document.getElementById('big-countdown').style.display = 'none';
+            document.getElementById('envelope-wrapper').style.display = 'block';
         }
     }, 1000);
 }
 
-// Fireworks Logic
+function openEnvelope() {
+    document.querySelector('.flap').style.transform = 'rotateX(180deg)';
+    setTimeout(() => {
+        document.getElementById('invitation-letter').style.display = 'block';
+    }, 500);
+}
+
+function confirmDate() {
+    alert("Date Confirmed! ❤️ See you at Hidden Garden Cafe!");
+}
+
+// FIREWORKS LOGIC (Red/Pink/Blue in Corners Only)
 class Particle {
     constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.velocity = {
-            x: (Math.random() - 0.5) * 6,
-            y: (Math.random() - 0.5) * 6
-        };
+        this.x = x; this.y = y; this.color = color;
+        this.vx = (Math.random() - 0.5) * 5; this.vy = (Math.random() - 0.5) * 5;
         this.alpha = 1;
     }
     draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.restore();
+        ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color;
+        ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI * 2); ctx.fill();
     }
-    update() {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-        this.alpha -= 0.015;
-    }
+    update() { this.x += this.vx; this.y += this.vy; this.alpha -= 0.01; }
 }
 
-function createFirework() {
+function spawnFireworks() {
     if (!fireworksActive) return;
-
-    // Position: Randomly at Top, Bottom, Left, or Right (avoid center)
-    const margin = 150;
-    let x, y;
-    const side = Math.floor(Math.random() * 4);
-
-    if (side === 0) { x = Math.random() * canvas.width; y = Math.random() * margin; } // Top
-    else if (side === 1) { x = Math.random() * canvas.width; y = canvas.height - Math.random() * margin; } // Bottom
-    else if (side === 2) { x = Math.random() * margin; y = Math.random() * canvas.height; } // Left
-    else { x = canvas.width - Math.random() * margin; y = Math.random() * canvas.height; } // Right
-
-    const colors = ['#FF0000', '#FF69B4', '#0000FF']; // Red, Pink, Blue
-    const color = colors[Math.floor(Math.random() * colors.length)];
-
-    for (let i = 0; i < 25; i++) {
-        particles.push(new Particle(x, y, color));
-    }
+    // Tig-tatalo sa gilid (Top-Left, Top-Right, Bottom-Left, Bottom-Right)
+    const corners = [
+        {x: 50, y: 50}, {x: canvas.width-50, y: 50},
+        {x: 50, y: canvas.height-50}, {x: canvas.width-50, y: canvas.height-50}
+    ];
+    const colors = ['#FF0000', '#FF69B4', '#0000FF'];
+    
+    corners.forEach(pos => {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        for(let i=0; i<3; i++) particles.push(new Particle(pos.x, pos.y, color));
+    });
 }
 
-setInterval(createFirework, 500); // Speed of firework spawns
+setInterval(spawnFireworks, 800);
 
 function animate() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+    ctx.fillRect(0,0,canvas.width, canvas.height);
     particles.forEach((p, i) => {
-        if (p.alpha > 0) {
-            p.update();
-            p.draw();
-        } else {
-            particles.splice(i, 1);
-        }
+        if(p.alpha > 0) { p.update(); p.draw(); }
+        else { particles.splice(i, 1); }
     });
     requestAnimationFrame(animate);
 }
 animate();
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
