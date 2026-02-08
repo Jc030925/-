@@ -8,70 +8,63 @@ body {
 
 body.night-mode { background: radial-gradient(circle, #0f172a 0%, #000000 100%) !important; }
 
-/* Letter Card */
+/* Invitation Card - NILAKIHAN */
 .letter-card { 
-    display: none; background: #ffffff; width: 90%; max-width: 450px; padding: 15px; 
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; 
-    animation: popIn 0.8s ease-out; 
+    display: none; background: #ffffff; width: 95%; max-width: 550px; padding: 25px; 
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6); z-index: 1000; position: relative; 
+    animation: popIn 0.8s ease-out; border-radius: 15px;
 }
-.letter-inner { border: 3px double #d4af37; padding: 30px 20px; text-align: center; background: white; }
-.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 2.8rem; margin: 0; }
-.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.5; margin: 20px 0; font-size: 1.1rem; }
-.divider { color: #d4af37; font-size: 1.8rem; }
+.letter-inner { border: 5px double #d4af37; padding: 45px 35px; text-align: center; background: white; }
+.script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 4rem; margin: 0; }
+.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; margin: 30px 0; font-size: 1.5rem; }
+.divider { color: #d4af37; font-size: 2.5rem; margin: 15px 0; }
 
-/* Photo Frames (Polaroid Style) */
+/* Photos - NILAKIHAN ANG FRAMES */
 .photo-column {
     position: absolute;
-    top: -20px;
+    top: -40px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     z-index: -1;
 }
-.side-left { left: -160px; }
-.side-right { right: -160px; }
+.side-left { left: -200px; } /* Adjust position dahil lumaki frames */
+.side-right { right: -200px; }
 
 .photo-frame {
     background: white;
-    padding: 10px 10px 25px 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    padding: 12px 12px 35px 12px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
     border: 1px solid #eee;
-    width: 130px;
+    width: 170px; /* Dati 130px */
     transition: transform 0.3s;
 }
-.photo-frame img { width: 100%; height: 110px; object-fit: cover; }
+.photo-frame img { width: 100%; height: 150px; object-fit: cover; }
 
-/* Random Rotation */
-.photo-column div:nth-child(1) { transform: rotate(-5deg); }
-.photo-column div:nth-child(2) { transform: rotate(4deg); }
-.photo-column div:nth-child(3) { transform: rotate(-3deg); }
-.photo-column div:nth-child(4) { transform: rotate(6deg); }
+.photo-frame:hover { transform: scale(1.2) rotate(0deg) !important; z-index: 10; }
 
-.photo-frame:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; }
-
-/* Timer */
+/* Timer - NILAKIHAN */
 #big-timer-container {
   z-index: 1001; position: relative; color: white;
-  background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 15px;
-  border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(5px);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  background: rgba(0, 0, 0, 0.6); padding: 35px; border-radius: 20px;
+  border: 2px solid rgba(212, 175, 55, 0.8); backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
 }
-.timer-label { font-size: 0.8rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 10px; }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
+.timer-label { font-size: 1.1rem; letter-spacing: 4px; color: #d4af37; margin-bottom: 20px; font-weight: bold; }
+#timer-display { font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: bold; text-shadow: 0 0 15px #d4af37; }
 
-/* Animations */
-.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
-.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 200; }
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+/* Envelope - NILAKIHAN */
+.envelope-container { position: relative; cursor: pointer; width: 450px; height: 300px; z-index: 10; text-align: center; }
+.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85px; height: 85px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 45px; border: 3px solid #996515; }
+.front { position: absolute; bottom: 0; border-right: 225px solid #d32f2f; border-left: 225px solid #d32f2f; border-bottom: 150px solid #b71c1c; border-top: 150px solid transparent; z-index: 10; }
+.flap { position: absolute; top: 0; border-left: 225px solid transparent; border-right: 225px solid transparent; border-top: 155px solid #700b41; z-index: 5; }
+.instruction-text { color: #880e4f; font-weight: bold; margin-top: 40px; letter-spacing: 3px; font-size: 1.5rem; }
+
+.action-btn { background: #880e4f; color: white; border: none; padding: 20px 50px; border-radius: 40px; cursor: pointer; font-weight: bold; font-size: 1.4rem; margin-top: 20px; transition: transform 0.2s; }
+.action-btn:hover { transform: scale(1.1); background: #b71c1c; }
+
 @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* Envelope */
-.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
-.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
-.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
-.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; letter-spacing: 2px; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 14px 35px; border-radius: 30px; cursor: pointer; font-weight: bold; }
-
-@media (max-width: 900px) { .photo-column { display: none; } }
+/* For smaller screens, we hide side photos to avoid mess */
+@media (max-width: 1000px) { .photo-column { display: none; } }
