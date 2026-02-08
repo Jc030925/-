@@ -1,66 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Anniversary | Kai</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* Letter Card - Ginawang mas malapad para magkasya ang malaking text */
+.letter-card { 
+    display: none; 
+    background: #ffffff; 
+    width: 95%; 
+    max-width: 550px; /* Pinalaki mula 450px */
+    padding: 20px; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5); 
+    z-index: 1000; 
+    position: relative; 
+    animation: popIn 0.8s ease-out; 
+}
 
-<div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()">
-    <div class="envelope">
-        <div class="wax-seal">Kai ❤</div>
-        <div class="flap"></div>
-        <div class="front"></div>
-    </div>
-    <div class="instruction-text">Tap to Open Your Heart ❤</div>
-</div>
+.letter-inner { border: 3px double #d4af37; padding: 40px 30px; text-align: center; background: white; }
 
-<div id="invitation-letter" class="letter-card">
-    <div class="photo-column side-left">
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/6ombefiadebw8rwsi05gz/IMG_726.jpg?rlkey=q8u625sd3jmry4h7qg2yamji6&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/3tniq3c0y23f195y94mi0/IMG_0928.jpg?rlkey=rrw7xvuu63f07f93cbal8djkt&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/adhnbec9zboj51o86mqak/IMG_1460.jpg?rlkey=9pvn7aofvsygyl3b27f8g99gk&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/hpv5u61ga26lx4wmid0c6/IMG_6533.jpg?rlkey=qbhff4bne1gx9zp0tes7fhhc9&raw=1"></div>
-    </div>
+/* Font Sizes - Pinalaki ang letters */
+.script-title, .script-title-final { 
+    font-family: 'Great Vibes', cursive; 
+    color: #880e4f; 
+    font-size: 4rem; /* Pinalaki mula 2.8rem/3.5rem */
+    margin: 0; 
+}
 
-    <div class="photo-column side-right">
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/y7w0ubmwvpmikyzyb5nfo/IMG_6723.jpg?rlkey=pweovla3uu6i2r4ywqsj9u409&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/dcd8g3l229z3z9w31mhyb/IMG_6992.jpg?rlkey=e8eb7l3yorr499rznboppy39a&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/pbwr0tw5dum84yzt1uyuh/IMG_7162.jpg?rlkey=d6wujrao5arhw00x85g7j9xc4&raw=1"></div>
-        <div class="photo-frame"><img src="https://www.dropbox.com/scl/fi/5xp9ox8dmsh1qnkegx53l/IMG_67823.jpg?rlkey=y22vid7ecffpccnjh25w14ajv&raw=1"></div>
-    </div>
+.body-text, .body-text-final { 
+    font-style: italic; 
+    color: #333; 
+    line-height: 1.6; 
+    margin: 25px 0; 
+    font-size: 1.6rem; /* Pinalaki mula 1.1rem/1.3rem */
+}
 
-    <div class="letter-inner">
-        <h2 class="script-title">My Dearest Luv,</h2>
-        <p class="body-text">
-            Kai, from the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
-        </p>
-        <div class="divider">❤</div>
-        <div class="info-box">
-            <p class="event-name">Join me as we celebrate our first year of love</p>
-            <p class="date-time">March 21, 2026 • 5:00 PM</p>
-            <p class="venue">📍 Hidden Garden Cafe</p>
-        </div>
-        <button class="action-btn" onclick="confirmDate()">Confirm Date! ❤</button>
-    </div>
-</div>
+.divider { color: #d4af37; font-size: 2.5rem; } /* Pinalaki mula 1.8rem */
 
-<div id="final-stage" style="display: none; text-align: center;">
-    <div class="letter-card" style="display: block;">
-        <div class="letter-inner">
-            <h2 class="script-title-final">Date Confirmed!</h2>
-            <div class="divider">❤</div>
-            <p class="body-text-final">
-                It's a date! I can't wait to celebrate every second of our first year with you. <br>
-                I love you Kai!
-            </p>
-        </div>
-    </div>
-</div>
+.info-box p { 
+    font-size: 1.4rem; /* Pinalaki mula 1.1rem */
+    margin: 12px 0; 
+    font-weight: bold; 
+}
 
-<script src="script.js"></script>
-</body>
-</html>
+/* Photo Frames - Pinalaki ang pictures */
+.photo-frame {
+    background: white;
+    padding: 12px 12px 35px 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border: 1px solid #eee;
+    width: 170px; /* Pinalaki mula 130px */
+    transition: transform 0.3s;
+}
+
+.photo-frame img { 
+    width: 100%; 
+    height: 150px; /* Pinalaki mula 110px */
+    object-fit: cover; 
+}
+
+/* Inadjust ang pwesto ng columns dahil mas malaki na ang pictures */
+.side-left { left: -200px; }
+.side-right { right: -200px; }
+
+/* Action Button Size */
+.action-btn { 
+    background: #880e4f; 
+    color: white; 
+    border: none; 
+    padding: 18px 40px; 
+    border-radius: 35px; 
+    cursor: pointer; 
+    font-weight: bold;
+    font-size: 1.2rem; /* Pinalaki ng onti */
+}
