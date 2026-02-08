@@ -9,13 +9,13 @@ window.openEnvelope = function() {
 };
 
 window.startGrandReveal = function() {
-    // 1. Smoothly Darken background
+    // 1. Smooth Darkening
     clearInterval(heartRain);
     document.getElementById('heart-container').innerHTML = '';
     document.getElementById('invitation-letter').style.display = 'none';
     document.body.classList.add('night-mode');
 
-    // 2. Start 3-Second Countdown
+    // 2. Countdown 3s
     const countdownEl = document.getElementById('big-countdown');
     countdownEl.style.display = 'block';
     let count = 3;
@@ -26,32 +26,32 @@ window.startGrandReveal = function() {
         } else {
             clearInterval(timer);
             countdownEl.style.display = 'none';
-            triggerHeartFirework();
+            showHollowHeart();
         }
     }, 1000);
 };
 
-function triggerHeartFirework() {
+function showHollowHeart() {
     const revealBox = document.getElementById('grand-reveal-container');
     const names = document.getElementById('couple-names');
     revealBox.style.display = 'block';
     
-    // Sabog ng fireworks sa paligid
-    for(let i=0; i<5; i++) setTimeout(launchTripleFireworks, i*500);
+    // Initial big blast
+    launchTripleFireworks();
 
-    // Ipakita ang Names after a short bit
+    // Show names inside after 0.5s
     setTimeout(() => {
         names.classList.add('show');
     }, 500);
 
-    // After 5 seconds, itaas ang pangalan at ipakita ang letter
+    // After 5 seconds: Move up, show letter/timer
     setTimeout(() => {
         document.getElementById('big-firework-heart').style.display = 'none';
         names.classList.remove('center-overlap');
         names.classList.add('move-up');
         
         document.getElementById('final-stage').style.display = 'block';
-        setInterval(launchTripleFireworks, 1500); // Continuous fireworks sa gilid
+        setInterval(launchTripleFireworks, 1500); // Background fireworks
         startCountdown();
     }, 5000);
 }
@@ -73,8 +73,8 @@ function createFallingHeart() {
 
 function launchTripleFireworks() {
     const colors = ['#ff0000', '#ff69b4', '#ffd700'];
-    createHeartExplosion(Math.random()*20, Math.random()*100, colors[0]); // Left
-    createHeartExplosion(Math.random()*20 + 80, Math.random()*100, colors[1]); // Right
+    createHeartExplosion(Math.random()*25, Math.random()*100, colors[0]); // Left side
+    createHeartExplosion(Math.random()*25 + 75, Math.random()*100, colors[1]); // Right side
 }
 
 function createHeartExplosion(x, y, color) {
