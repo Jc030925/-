@@ -3,26 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JC & KAI Special</title>
+    <title>Our Anniversary</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="start-prompt">
-        <h1>Click anywhere to start ❤️</h1>
+
+    <div id="click-to-start" onclick="startExperience()" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; display:flex; justify-content:center; align-items:center; cursor:pointer;">
+        <h2 style="color:white;">Click to Start Heart ❤️</h2>
     </div>
 
     <canvas id="fireworksCanvas"></canvas>
 
-    <div id="content-wrapper">
-        <div class="names">JC & KAI</div>
-        
-        <div id="heart-section">
-            <div class="heart">❤️</div>
-        </div>
+    <div id="heart-scene">
+        <div id="couple-names-top" class="names-glow-gold">JC & KAI</div>
+        <div id="heart-container">❤️</div>
+    </div>
 
-        <div id="letter-section">
-            <div class="letter-icon">✉️</div>
-            <div id="timer" class="countdown">10</div>
+    <div id="big-countdown" class="center-overlap" style="display: none;">10</div>
+
+    <div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()" style="display: none;">
+        <div class="envelope">
+            <div class="wax-seal">❤</div>
+            <div class="flap"></div>
+            <div class="front"></div>
+        </div>
+        <div class="instruction-text">Tap to Open Your Heart ❤</div>
+    </div>
+
+    <div id="invitation-letter" class="letter-card">
+        <div class="letter-inner">
+            <h2 class="script-title">My Dearest Luv,</h2>
+            <p class="body-text">
+                From the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
+            </p>
+            <div class="divider">❤</div>
+            <div class="info-box">
+                <p class="event-name">Our First Anniversary Celebration</p>
+                <p class="date-time">March 21, 2026 • 5:00 PM</p>
+                <p class="venue">📍 Hidden Garden Cafe</p>
+            </div>
+            <button class="action-btn" onclick="confirmDate()">Confirm Date? ❤</button>
         </div>
     </div>
 
