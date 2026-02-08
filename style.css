@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
 
 body {
-    background: #f8bbd0; /* Pink background */
+    background: #f8bbd0;
     height: 100vh; display: flex; justify-content: center; align-items: center;
     overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
     transition: background 1s ease;
@@ -9,34 +9,33 @@ body {
 
 body.night-mode { background: #000 !important; }
 
-/* Envelope Visuals */
-.instruction-text.colored-text { color: #880e4f; font-weight: bold; margin-top: 30px; font-size: 1.2rem; }
-.envelope-container { cursor: pointer; width: 320px; text-align: center; }
-.envelope { position: relative; width: 300px; height: 180px; background: #c62828; margin: auto; }
-.front { position: absolute; bottom: 0; border-right: 150px solid #d32f2f; border-left: 150px solid #d32f2f; border-bottom: 90px solid #b71c1c; border-top: 90px solid transparent; z-index: 10; }
-.flap { position: absolute; top: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 100px solid #700b41; z-index: 5; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: #d4af37; border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; }
+/* Envelope */
+.instruction-text.colored-text { color: #880e4f; font-weight: bold; margin-top: 30px; font-size: 1.4rem; }
+.envelope-container { cursor: pointer; width: 350px; text-align: center; }
+.envelope { position: relative; width: 320px; height: 200px; background: #c62828; margin: auto; }
+.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 100px solid #b71c1c; border-top: 100px solid transparent; z-index: 10; }
+.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
+.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #d4af37; border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 25px; }
 
-/* Letter Card */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 450px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; }
-.letter-inner { border: 3px double #d4af37; padding: 30px 20px; text-align: center; }
-
-/* Reveal Scenes */
-.center-overlap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 3000; }
-#big-countdown { font-family: 'Orbitron', sans-serif; font-size: 10rem; color: white; text-shadow: 0 0 20px #ff1493; }
-
-.names-glow { font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ffd700; text-shadow: 0 0 20px #ff1493, 0 0 40px #ffd700; margin-bottom: 20px; opacity: 0; transition: opacity 1s; }
-.names-glow.show { opacity: 1; }
-.heart-firework { font-size: 15rem; color: #ff0000; text-shadow: 0 0 50px #ff0000; animation: heartPound 1.2s infinite; }
+/* Invitation Letter - LAKING TEXT */
+.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; border-radius: 10px; }
+.letter-inner { border: 4px double #d4af37; padding: 40px 30px; text-align: center; }
+.script-title { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 4.5rem; margin: 0; }
+.body-text { font-style: italic; font-size: 1.6rem; line-height: 1.4; color: #333; }
+.info-box p { font-size: 1.4rem; font-weight: bold; margin: 10px 0; color: #880e4f; }
+.action-btn { background: #880e4f; color: white; border: none; padding: 18px 45px; border-radius: 35px; cursor: pointer; font-size: 1.3rem; font-weight: bold; margin-top: 20px; }
 
 /* Final Stage */
-.final-card { background: white; padding: 30px; border: 4px double #d4af37; text-align: center; color: #333; width: 90%; max-width: 420px; margin-bottom: 20px; }
-.final-names { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ffd700; margin: 0; }
-#big-timer-container { background: #1a1a1a; color: white; padding: 20px; border-radius: 15px; text-align: center; width: 320px; }
-#timer-display { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: white; }
+#final-stage { display: none; flex-direction: column; align-items: center; z-index: 3000; width: 100%; }
+.final-card { background: white; padding: 40px; border: 5px double #d4af37; text-align: center; color: #333; width: 90%; max-width: 480px; margin-bottom: 25px; border-radius: 10px; }
+.final-title { font-size: 2.5rem; margin: 0; color: #880e4f; }
+.final-body { font-size: 1.5rem; line-height: 1.5; margin: 20px 0; }
+.final-names { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #ffd700; text-shadow: 1px 1px 2px #000; }
+.small-heart { font-size: 2rem; color: #ff0000; margin: 10px 0; }
 
-/* Heart Sparks (Fireworks) */
-.spark { position: absolute; pointer-events: none; background: transparent !important; z-index: 2000; font-family: Arial, sans-serif; }
+#big-timer-container { background: rgba(26, 26, 26, 0.9); color: white; padding: 25px; border-radius: 20px; text-align: center; width: 380px; border: 2px solid #d4af37; }
+.timer-label { font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; color: #d4af37; }
+#timer-display { font-family: 'Orbitron', sans-serif; font-size: 2rem; }
 
-@keyframes heartPound { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.action-btn { background: #880e4f; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+/* Sparkle Hearts */
+.spark { position: absolute; pointer-events: none; background: transparent !important; z-index: 2000; font-size: 20px; }
