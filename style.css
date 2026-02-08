@@ -1,44 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,700&family=Orbitron&display=swap');
 
 body {
-    background: radial-gradient(circle, #fce4ec 0%, #f8bbd0 100%);
+    background: #f8bbd0; /* Pink background */
     height: 100vh; display: flex; justify-content: center; align-items: center;
     overflow: hidden; margin: 0; font-family: 'Playfair Display', serif;
-    transition: background 2s ease-in-out;
+    transition: background 1s ease;
 }
 
 body.night-mode { background: #000 !important; }
 
-.center-overlap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 3000; }
-
 /* Envelope Visuals */
-.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
-.envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
-.front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
-.flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; transition: transform 0.6s; }
-.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
+.instruction-text.colored-text { color: #880e4f; font-weight: bold; margin-top: 30px; font-size: 1.2rem; }
+.envelope-container { cursor: pointer; width: 320px; text-align: center; }
+.envelope { position: relative; width: 300px; height: 180px; background: #c62828; margin: auto; }
+.front { position: absolute; bottom: 0; border-right: 150px solid #d32f2f; border-left: 150px solid #d32f2f; border-bottom: 90px solid #b71c1c; border-top: 90px solid transparent; z-index: 10; }
+.flap { position: absolute; top: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 100px solid #700b41; z-index: 5; }
+.wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: #d4af37; border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; }
 
 /* Letter Card */
-.letter-card { display: none; background: #ffffff; width: 90%; max-width: 500px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
-.letter-inner { border: 3px double #d4af37; padding: 35px 25px; text-align: center; }
+.letter-card { display: none; background: #ffffff; width: 90%; max-width: 450px; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; }
+.letter-inner { border: 3px double #d4af37; padding: 30px 20px; text-align: center; }
 
-/* Countdown 3-2-1 */
+/* Reveal Scenes */
+.center-overlap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 3000; }
 #big-countdown { font-family: 'Orbitron', sans-serif; font-size: 10rem; color: white; text-shadow: 0 0 20px #ff1493; }
 
-/* Grand Reveal */
+.names-glow { font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ffd700; text-shadow: 0 0 20px #ff1493, 0 0 40px #ffd700; margin-bottom: 20px; opacity: 0; transition: opacity 1s; }
+.names-glow.show { opacity: 1; }
 .heart-firework { font-size: 15rem; color: #ff0000; text-shadow: 0 0 50px #ff0000; animation: heartPound 1.2s infinite; }
-@keyframes heartPound { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
-.names-glow { 
-    font-family: 'Great Vibes', cursive; font-size: 5rem; color: #ffd700; 
-    text-shadow: 0 0 20px #ff1493, 0 0 40px #ffd700; 
-    opacity: 0; transition: all 1s ease-in-out; margin-top: -50px;
-}
-.names-glow.show { opacity: 1; margin-top: 20px; }
-.names-glow.move-up { position: fixed; top: 10%; font-size: 3.5rem; opacity: 1; }
+/* Final Stage */
+.final-card { background: white; padding: 30px; border: 4px double #d4af37; text-align: center; color: #333; width: 90%; max-width: 420px; margin-bottom: 20px; }
+.final-names { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ffd700; margin: 0; }
+#big-timer-container { background: #1a1a1a; color: white; padding: 20px; border-radius: 15px; text-align: center; width: 320px; }
+#timer-display { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: white; }
 
-/* UI */
-.script-title { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 3.5rem; }
-.body-text { font-style: italic; font-size: 1.3rem; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 15px 35px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; margin-top: 15px; }
-.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 2000; }
+/* Heart Sparks (Fireworks) */
+.spark { position: absolute; pointer-events: none; background: transparent !important; z-index: 2000; font-family: Arial, sans-serif; }
+
+@keyframes heartPound { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.action-btn { background: #880e4f; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-top: 15px; }
