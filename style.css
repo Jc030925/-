@@ -1,85 +1,28 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #000;
-    color: white;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+body { margin: 0; background: #000; color: white; font-family: 'serif'; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
+
+canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
+/* NAMES ABOVE HEART - GOLD */
+.names-glow-gold {
+    font-size: 2.5rem; color: #FFD700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    font-weight: bold; margin-bottom: 20px; z-index: 10;
 }
 
-#main-wrapper {
-    text-align: center;
-    z-index: 10;
-    position: relative;
-}
+#heart-container { font-size: 100px; animation: pulse 1s infinite; z-index: 10; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-/* JC & KAI - Gold Color & Always on top */
-.names {
-    font-size: 2.8rem;
-    font-weight: bold;
-    color: #FFD700; /* Gold */
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    margin-bottom: 20px;
-}
+/* ENVELOPE STYLES (Based on your layout) */
+.envelope-container { cursor: pointer; text-align: center; z-index: 10; position: relative; }
+.envelope { position: relative; width: 200px; height: 120px; background: #c0392b; margin: auto; }
+.flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 60px solid #e74c3c; z-index: 2; transition: 0.5s; }
+.wax-seal { position: absolute; top: 40px; left: 85px; width: 30px; height: 30px; background: #f1c40f; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 3; color: #c0392b; font-weight: bold; }
 
-/* Heart Style */
-.heart {
-    font-size: 100px;
-    color: #ff4d4d;
-    animation: pulse 1s infinite;
+/* LETTER CARD */
+.letter-card {
+    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 85%; max-width: 350px; background: #fff; color: #333; padding: 20px; border-radius: 10px; z-index: 100;
 }
+.script-title { font-family: 'cursive'; color: #c0392b; }
+.action-btn { background: #c0392b; color: white; border: none; padding: 10px; margin: 5px; cursor: pointer; border-radius: 5px; width: 100%; }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* Letter Scene Hidden at Start */
-#letter-scene {
-    display: none;
-}
-
-.envelope {
-    font-size: 120px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.envelope:hover {
-    transform: scale(1.1);
-}
-
-.countdown {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #ffffff;
-}
-
-/* Fireworks Background */
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Initial Overlay */
-#overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    cursor: pointer;
-}
+.center-overlap { font-size: 4rem; z-index: 20; position: absolute; }
