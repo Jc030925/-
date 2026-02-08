@@ -57,8 +57,8 @@ function launchTripleFireworks() {
             
             p.animate([
                 { transform: 'translate(0, 0) scale(0)', opacity: 1 },
-                { transform: `translate(${xMult * 8}px, ${yMult * 8}px) scale(1.2)`, opacity: 1, offset: 0.7 },
-                { transform: `translate(${xMult * 10}px, ${yMult * 10}px) scale(0)`, opacity: 0 }
+                { transform: `translate(${xMult * 10}px, ${yMult * 10}px) scale(1.5)`, opacity: 1, offset: 0.7 },
+                { transform: `translate(${xMult * 12}px, ${yMult * 12}px) scale(0)`, opacity: 0 }
             ], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
             
             setTimeout(() => p.remove(), 2100);
