@@ -7,57 +7,54 @@ body {
   transition: background 2s ease-in-out;
 }
 
-body.night-mode { background: radial-gradient(circle, #0f172a 0%, #000000 100%) !important; }
+body.night-mode { background: transparent !important; }
 
-/* Letter Card - Pinalaki ang font at width */
+/* Letter Card - Pinalaki ang laki */
 .letter-card { display: none; background: #ffffff; width: 95%; max-width: 550px; padding: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); z-index: 1000; position: relative; animation: popIn 0.8s ease-out; }
-.letter-inner { border: 3px double #d4af37; padding: 40px 30px; text-align: center; }
+.letter-inner { border: 3px double #d4af37; padding: 40px 30px; text-align: center; background: white; }
+
+/* Pinalaking Font Sizes */
 .script-title, .script-title-final { font-family: 'Great Vibes', cursive; color: #880e4f; font-size: 4rem; margin: 0; }
-.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; margin: 25px 0; font-size: 1.5rem; }
+.body-text, .body-text-final { font-style: italic; color: #333; line-height: 1.6; margin: 25px 0; font-size: 1.6rem; }
 .divider { color: #d4af37; font-size: 2.5rem; }
 .info-box p { font-size: 1.3rem; margin: 12px 0; font-weight: bold; }
 
-/* PHOTO COLUMNS (Polaroid) */
+/* Photos Layout */
 .photo-column { position: absolute; top: -10px; display: flex; flex-direction: column; gap: 20px; z-index: -1; }
 .side-left { left: -190px; }
 .side-right { right: -190px; }
-
-.photo-frame {
-    background: white; padding: 12px 12px 35px 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #eee;
-    width: 160px; transition: transform 0.3s;
-}
-.photo-frame img { width: 100%; height: 140px; object-fit: cover; }
-
-/* Random Rotation */
+.photo-frame { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #eee; width: 165px; transition: transform 0.3s; }
+.photo-frame img { width: 100%; height: 145px; object-fit: cover; }
 .photo-column div:nth-child(1) { transform: rotate(-5deg); }
 .photo-column div:nth-child(2) { transform: rotate(4deg); }
 .photo-column div:nth-child(3) { transform: rotate(-3deg); }
-.photo-frame:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; }
 
-/* BIG TIMER STYLE */
+/* Smooth Transition for Final Stage */
+#final-stage { opacity: 0; transition: opacity 2s ease-in-out; }
+#final-stage.show { opacity: 1; }
+
+/* Timer Style */
 #big-timer-container {
   z-index: 1001; position: relative; color: white;
-  background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 15px;
-  border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.6); padding: 25px; border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(8px);
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
-.timer-label { font-size: 0.9rem; letter-spacing: 3px; color: #d4af37; margin-bottom: 12px; }
 #timer-display { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: bold; text-shadow: 0 0 10px #d4af37; }
 
-/* Effects */
-.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 200; }
-.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-/* Envelope */
-.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; text-align: center; }
+/* Envelope at iba pa */
+.envelope-container { position: relative; cursor: pointer; width: 320px; height: 220px; z-index: 10; }
 .envelope { position: relative; width: 100%; height: 100%; background-color: #880e4f; }
 .wax-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: radial-gradient(circle, #d4af37, #aa8e2d); border-radius: 50%; z-index: 15; display: flex; justify-content: center; align-items: center; color: #880e4f; font-size: 30px; border: 2px solid #996515; }
 .front { position: absolute; bottom: 0; border-right: 160px solid #d32f2f; border-left: 160px solid #d32f2f; border-bottom: 110px solid #b71c1c; border-top: 110px solid transparent; z-index: 10; }
 .flap { position: absolute; top: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 110px solid #700b41; z-index: 5; }
-.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; letter-spacing: 2px; font-size: 1.1rem; }
-.action-btn { background: #880e4f; color: white; border: none; padding: 18px 45px; border-radius: 35px; cursor: pointer; font-weight: bold; font-size: 1.2rem; margin-top: 10px; }
+.instruction-text { color: #880e4f; font-weight: bold; margin-top: 25px; text-align: center; }
+.action-btn { background: #880e4f; color: white; border: none; padding: 18px 45px; border-radius: 35px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
 
-@media (max-width: 950px) { .photo-column { display: none; } }
+/* Falling Hearts & Sparks */
+.falling-heart { position: fixed; top: -50px; color: #ff0000; font-size: 45px; z-index: 1; animation: fall linear forwards; }
+.spark { position: absolute; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 200; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 1000px) { .photo-column { display: none; } }
