@@ -1,0 +1,48 @@
+<div id="heart-container"></div>
+
+<div id="envelope-wrapper" class="envelope-container" onclick="openEnvelope()">
+  <div class="envelope">
+    <div class="wax-seal">❤</div>
+    <div class="flap"></div>
+    <div class="front"></div>
+  </div>
+  <div class="instruction-text">Tap to Open Your Heart ❤</div>
+</div>
+
+<div id="invitation-letter" class="letter-card">
+  <div class="letter-inner">
+    <h2 class="script-title">My Dearest Luv,</h2>
+    <p class="body-text">
+      From the moment you walked into my life, every day has been a beautiful chapter filled with love and the sweetest memories.
+    </p>
+    <div class="divider">❤</div>
+    <div class="info-box">
+      <p class="event-name">Our First Anniversary Celebration</p>
+      <p class="date-time">March 21, 2026 • 5:00 PM</p>
+      <p class="venue">📍 Hidden Garden Cafe</p>
+    </div>
+    <button class="action-btn" onclick="confirmDate()">Confirm Date! ❤</button>
+  </div>
+</div>
+
+<div id="final-stage" style="display: none; text-align: center;">
+  <div id="confirmation-letter" class="letter-card" style="display: block; margin: 0 auto 30px;">
+    <div class="letter-inner">
+      <h2 class="script-title-final">Date Confirmed!</h2>
+      <div class="divider">❤</div>
+      <p class="body-text-final">
+        Counting down the days until we celebrate our first year together. <br>
+        I love you!
+      </p>
+    </div>
+  </div>
+
+  <div id="big-timer-container">
+    <div class="timer-label">TIME UNTIL OUR ANNIVERSARY CELEBRATION</div>
+    <div id="timer-display">00d : 00h : 00m : 00s</div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.dropbox.com/scl/fi/xgvx479rqmh8refwkdu0q/easy.mp3?rlkey=an4hycmujdife5ujhcyc0myun&st=frd0vpof&raw=1" type="audio/mpeg">
+</audio>
