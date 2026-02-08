@@ -2,7 +2,7 @@ let heartRain;
 
 window.openEnvelope = function() {
     const music = document.getElementById("bgMusic");
-    music.play().catch(() => console.log("Music interaction required"));
+    music.play().catch(() => console.log("Music waiting"));
     document.getElementById('envelope-wrapper').style.display = 'none';
     document.getElementById('invitation-letter').style.display = 'block';
     heartRain = setInterval(createFallingHeart, 450);
@@ -41,20 +41,23 @@ function showHollowHeart() {
         names.classList.add('show');
     }, 500);
 
-    // Timing: 5 seconds bago umakyat ang names
+    // PAGLIPAD SA ITAAS PAGKATAPOS NG 4 SECONDS
     setTimeout(() => {
-        bigHeart.style.transition = "opacity 1s";
+        // Dahan-dahang alisin ang malaking puso
+        bigHeart.style.transition = "opacity 0.8s";
         bigHeart.style.opacity = "0"; 
         
+        // Akyat ang pangalan sa itaas ng letter
         names.classList.add('move-up'); 
         
+        // Pagkatapos ng pag-akyat, ipakita ang letter at timer
         setTimeout(() => {
             bigHeart.style.display = 'none';
             document.getElementById('final-stage').style.display = 'block';
             setInterval(launchTripleFireworks, 1500);
             startCountdown();
-        }, 1000);
-    }, 5000);
+        }, 800);
+    }, 4000);
 }
 
 function createFallingHeart() {
