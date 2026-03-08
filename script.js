@@ -104,7 +104,7 @@ window.toggleVoice = function() {
 
     if (voiceAudio.paused) {
         // 1. Gawing sobrang hina ng background music (0.1 na lang)
-        finalMusic.volume = 0.1; 
+        finalMusic.volume = 0.05; 
         
         // 2. Siguraduhin na ang voice recording ay naka-todo (1.0)
         voiceAudio.volume = 1.0; 
@@ -184,6 +184,7 @@ function startCountdown() {
         display.innerHTML = `${d}d : ${h}h : ${m}m : ${s}s`;
     }, 1000);
 }
+
 
 
 
