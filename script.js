@@ -97,22 +97,24 @@ function goToThirdPage() {
     }, 2000);
 }
 
-// NEW FUNCTION: PARA SA VOICE RECORDING
 window.toggleVoice = function() {
     const finalMusic = document.getElementById('finalMusic');
     const voiceAudio = document.getElementById('voiceAudio');
     const btn = document.querySelector('.voice-btn');
 
     if (voiceAudio.paused) {
-        // Hinaan ang music (Volume 0.2)
-        finalMusic.volume = 0.1;
-        voiceAudio.volume = 1.0;
+        // 1. Gawing sobrang hina ng background music (0.1 na lang)
+        finalMusic.volume = 0.1; 
+        
+        // 2. Siguraduhin na ang voice recording ay naka-todo (1.0)
+        voiceAudio.volume = 1.0; 
+        
+        voiceAudio.play();
         btn.innerHTML = "Listening... 🎤";
         btn.classList.add('playing');
 
-        // Pag natapos yung boses, ibalik ang lakas ng music
         voiceAudio.onended = function() {
-            finalMusic.volume = 0.9;
+            finalMusic.volume = 0.9; // Babalik ang lakas ng music pag tapos na
             btn.innerHTML = "Listen again? 🎤";
             btn.classList.remove('playing');
         };
@@ -182,5 +184,6 @@ function startCountdown() {
         display.innerHTML = `${d}d : ${h}h : ${m}m : ${s}s`;
     }, 1000);
 }
+
 
 
