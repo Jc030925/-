@@ -105,7 +105,7 @@ window.toggleVoice = function() {
 
     if (voiceAudio.paused) {
         // Hinaan ang music (Volume 0.2)
-        finalMusic.volume = 0.2;
+        finalMusic.volume = 0.1;
         voiceAudio.play();
         btn.innerHTML = "Listening... 🎤";
         btn.classList.add('playing');
@@ -182,3 +182,4 @@ function startCountdown() {
         display.innerHTML = `${d}d : ${h}h : ${m}m : ${s}s`;
     }, 1000);
 }
+
