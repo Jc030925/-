@@ -63,7 +63,6 @@ function updateLockCountdown() {
     }
 
     const d = Math.floor(dist / 86400000), h = Math.floor((dist % 86400000) / 3600000), m = Math.floor((dist % 3600000) / 60000), s = Math.floor((dist % 60000) / 1000);
-    // Eto yung pinabago mong text:
     lockDisplay.innerHTML = `It's not our anniversary yet: <br>${d}d : ${h}h : ${m}m : ${s}s`;
 }
 
@@ -97,6 +96,34 @@ function goToThirdPage() {
         setTimeout(() => { thirdStage.classList.add('show'); }, 50);
     }, 2000);
 }
+
+// NEW FUNCTION: PARA SA VOICE RECORDING
+window.toggleVoice = function() {
+    const finalMusic = document.getElementById('finalMusic');
+    const voiceAudio = document.getElementById('voiceAudio');
+    const btn = document.querySelector('.voice-btn');
+
+    if (voiceAudio.paused) {
+        // Hinaan ang music (Volume 0.2)
+        finalMusic.volume = 0.2;
+        voiceAudio.play();
+        btn.innerHTML = "Listening... 🎤";
+        btn.classList.add('playing');
+
+        // Pag natapos yung boses, ibalik ang lakas ng music
+        voiceAudio.onended = function() {
+            finalMusic.volume = 0.9;
+            btn.innerHTML = "Listen again? 🎤";
+            btn.classList.remove('playing');
+        };
+    } else {
+        voiceAudio.pause();
+        voiceAudio.currentTime = 0;
+        finalMusic.volume = 0.9;
+        btn.innerHTML = "Listen to my voice? 🎤";
+        btn.classList.remove('playing');
+    }
+};
 
 function createRosePetal() {
     const petal = document.createElement('div');
